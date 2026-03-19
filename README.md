@@ -48,7 +48,7 @@ The website will be available at `http://localhost:3000`.
 
 ### 5. Run the Discord Bot
 ```bash
-node bot.js
+node bot/index.js
 ```
 *Note: Make sure to enable the **Message Content Intent** in your Discord Developer Portal -> Bot -> Privileged Gateway Intents.*
 
