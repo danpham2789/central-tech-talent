@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trany Code Contest - Competitive programming platform with Discord integration">
+    <title>Trany Code Contest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== LANDING PAGE ===== -->
+    <div id="page-landing" class="page active">
+        <header class="landing-header">
+            <div class="logo"><span class="logo-icon">⚡</span> Trany Code</div>
+            <button class="btn btn-outline" onclick="showAdminLogin()">Admin</button>
+        </header>
+        <section class="hero">
+            <div class="hero-bg"><div class="grid-lines"></div></div>
+            <div class="hero-content">
+                <div class="hero-badge">🏆 Competitive Programming</div>
+                <h1>Trany Code <span class="gradient-text">Contest</span></h1>
+                <p class="hero-desc">Solve coding challenges, test your skills against real test cases, and earn points redeemable on Discord.</p>
+            </div>
+        </section>
+        <section class="contests-section" id="contests-section">
+            <h2>Active Contests</h2>
+            <div class="contests-grid" id="contests-list">
+                <div class="loading-spinner"><div class="spinner"></div><p>Loading contests...</p></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== JOIN FORM ===== -->
+    <div id="page-join" class="page">
+        <header class="page-top-bar">
+            <button class="btn btn-ghost" onclick="goHome()">← Back</button>
+            <div class="logo-small"><span>⚡</span> Trany Code</div>
+        </header>
+        <div class="join-container">
+            <div class="join-card glass-card">
+                <h2>Join Contest</h2>
+                <p class="join-contest-title" id="join-contest-title">Contest Name</p>
+                <div class="input-group"><label>Full Name *</label><input type="text" id="join-name" placeholder="Your full name"></div>
+                <div class="input-group"><label>Email *</label><input type="email" id="join-email" placeholder="you@example.com"></div>
+                <div class="input-group"><label>Phone Number *</label><input type="tel" id="join-phone" placeholder="+84 xxx xxx xxx"></div>
+                <button class="btn btn-primary btn-full" onclick="joinContest()">Enter Contest →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CONTEST PAGE ===== -->
+    <div id="page-contest" class="page">
+        <header class="contest-top-bar">
+            <div class="contest-bar-left">
+                <div class="logo-small"><span>⚡</span> <span id="contest-title-bar">Contest</span></div>
+            </div>
+            <div class="contest-bar-right">
+                <div class="participant-badge" id="participant-name-badge">User</div>
+                <button class="btn btn-accent btn-sm" onclick="finishContest()">Finish & Get Code</button>
+            </div>
+        </header>
+        <div class="contest-layout">
+            <aside class="question-sidebar" id="question-sidebar">
+                <h3>Problems</h3>
+                <div class="question-list" id="question-list"></div>
+                <div class="sidebar-score">
+                    <span>Score:</span>
+                    <strong id="total-score">0</strong>
+                </div>
+            </aside>
+            <main class="contest-main">
+                <div class="question-panel" id="question-panel">
+                    <div class="question-header">
+                        <h2 id="question-title">Select a problem</h2>
+                        <span class="question-points-badge" id="question-points-badge">0 pts</span>
+                    </div>
+                    <div class="question-description" id="question-description"></div>
+                    <div class="pdf-section" id="pdf-section" style="display:none">
+                        <a id="pdf-link" href="#" target="_blank" class="btn btn-outline btn-sm">📄 Download Problem PDF</a>
+                        <iframe id="pdf-viewer" class="pdf-viewer" src=""></iframe>
+                    </div>
+                </div>
+                <div class="editor-panel">
+                    <div class="editor-toolbar">
+                        <select id="language-select" class="lang-select">
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="cpp">C++</option>
+                            <option value="c">C</option>
+                            <option value="java">Java</option>
+                            <option value="go">Go</option>
+                            <option value="rust">Rust</option>
+                        </select>
+                        <button class="btn btn-primary btn-sm" id="submit-btn" onclick="submitCode()">
+                            ▶ Submit Code
+                        </button>
+                    </div>
+                    <textarea id="code-editor" class="code-editor" placeholder="// Write your code here..." spellcheck="false"></textarea>
+                </div>
+                <div class="results-panel" id="results-panel" style="display:none">
+                    <h3>Test Results</h3>
+                    <div id="test-results-list" class="test-results-list"></div>
+                    <div class="submission-verdict" id="submission-verdict"></div>
+                </div>
+                <div class="past-submissions" id="past-submissions" style="display:none">
+                    <h3>Your Submissions</h3>
+                    <div id="submissions-list" class="submissions-list"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- ===== POINT CODE PAGE ===== -->
+    <div id="page-code" class="page">
+        <div class="code-result-container">
+            <div class="code-result-card glass-card">
+                <div class="code-trophy">🏆</div>
+                <h2>Contest Complete!</h2>
+                <p class="code-score">Your Score: <strong id="final-score">0</strong> / <strong id="max-score">0</strong></p>
+                <div class="point-code-box">
+                    <label>Your Point Code</label>
+                    <div class="point-code-display">
+                        <span id="point-code-value">TR-XXXX-XXXX</span>
+                        <button class="btn-copy" onclick="copyPointCode()" title="Copy">📋</button>
+                    </div>
+                </div>
+                <div class="code-instructions">
+                    <h3>How to Redeem</h3>
+                    <div id="discord-join-section" style="display:none;text-align:center;margin-bottom:16px">
+                        <p style="font-size:14px;color:var(--text-2);margin-bottom:10px">Step 1: Join our Discord server</p>
+                        <a id="discord-join-link" href="#" target="_blank" class="btn btn-primary" style="font-size:16px;padding:12px 32px">
+                            🎮 Join Discord Server
+                        </a>
+                    </div>
+                    <p style="font-size:14px;color:var(--text-2);margin-bottom:8px;text-align:center">Then copy & paste this into any channel:</p>
+                    <div class="point-code-display" style="margin:12px 0;cursor:pointer" onclick="copyRedeemCommand()">
+                        <span id="code-in-instructions" style="font-size:16px;letter-spacing:1px">!redeem TR-XXXX-XXXX</span>
+                        <button class="btn-copy" title="Copy command">📋</button>
+                    </div>
+                    <p style="text-align:center;font-size:13px;color:var(--text-3)">The bot will add points to your Discord account! 🎉</p>
+                </div>
+                <button class="btn btn-outline" onclick="goHome()">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN PANEL ===== -->
+    <div id="page-admin" class="page">
+        <header class="page-top-bar">
+            <button class="btn btn-ghost" onclick="goHome()">← Back</button>
+            <div class="logo-small"><span>⚡</span> Admin Panel</div>
+            <button class="btn btn-ghost" onclick="goHome()">Logout</button>
+        </header>
+        <div class="admin-container">
+            <div class="admin-section">
+                <div class="admin-header">
+                    <h2>Contests</h2>
+                    <button class="btn btn-primary btn-sm" onclick="showCreateContest()">+ New Contest</button>
+                </div>
+                <div id="admin-contests-list" class="admin-list"></div>
+            </div>
+            <div class="admin-section" id="admin-contest-detail" style="display:none">
+                <div class="admin-header"><h2 id="admin-detail-title">Contest Details</h2></div>
+                <div id="admin-questions-list" class="admin-list"></div>
+                <div class="admin-header" style="margin-top:24px"><h3>Add Question</h3></div>
+                <div class="admin-form" id="add-question-form">
+                    <div class="input-group"><label>Title *</label><input type="text" id="q-title" placeholder="e.g. Two Sum"></div>
+                    <div class="input-group"><label>Description</label><textarea id="q-desc" placeholder="Problem description..." rows="3"></textarea></div>
+                    <div class="form-row">
+                        <div class="input-group"><label>Points</label><input type="number" id="q-points" value="100" min="1"></div>
+                        <div class="input-group"><label>Sort Order</label><input type="number" id="q-order" value="0"></div>
+                    </div>
+                    <div class="input-group"><label>Problem PDF</label><input type="file" id="q-pdf" accept=".pdf"></div>
+                    <div class="input-group">
+                        <label>Test Cases (JSON array)</label>
+                        <textarea id="q-testcases" class="mono" rows="6" placeholder='[&#10;  { "input": "3 5", "expectedOutput": "8" },&#10;  { "input": "10 20", "expectedOutput": "30", "hidden": true }&#10;]'></textarea>
+                        <p class="hint">Each test case: { "input": "...", "expectedOutput": "...", "hidden": true/false }</p>
+                    </div>
+                    <button class="btn btn-accent" onclick="addQuestion()">Add Question</button>
+                </div>
+            </div>
+            <div class="admin-section">
+                <div class="admin-header"><h2>Point Codes</h2></div>
+                <div id="admin-codes-list" class="admin-list"></div>
+            </div>
+            <div class="admin-section">
+                <div class="admin-header"><h2>⚙️ Settings</h2></div>
+                <div class="admin-form">
+                    <h4 style="margin-bottom:12px;color:var(--text-2)">🤖 Auto One-Time Invite (Recommended)</h4>
+                    <p class="hint" style="margin-bottom:16px">Set these so each user gets a unique one-time Discord invite link when they finish.</p>
+                    <div class="input-group">
+                        <label>Bot Token</label>
+                        <input type="password" id="setting-bot-token" placeholder="Paste your bot token here">
+                        <p class="hint">From Discord Developer Portal → Bot → Token</p>
+                    </div>
+                    <div class="input-group">
+                        <label>Channel ID</label>
+                        <input type="text" id="setting-channel-id" placeholder="e.g. 1234567890123456789">
+                        <p class="hint">Right-click a text channel → Copy Channel ID (enable Developer Mode in Discord settings)</p>
+                    </div>
+                    <h4 style="margin:20px 0 12px;color:var(--text-2)">📎 Fallback Static Invite</h4>
+                    <div class="input-group">
+                        <label>Discord Server Invite Link</label>
+                        <input type="text" id="setting-discord-invite" placeholder="https://discord.gg/your-invite-code">
+                        <p class="hint">Used only if auto invite creation fails. Can be a permanent link.</p>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ADMIN LOGIN MODAL ===== -->
+    <div id="admin-login-modal" class="modal-overlay" onclick="this.classList.remove('active')">
+        <div class="modal-card glass-card" onclick="event.stopPropagation()">
+            <h3>Admin Login</h3>
+            <div class="input-group"><label>Password</label><input type="password" id="admin-password" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')adminLogin()"></div>
+            <button class="btn btn-primary btn-full" onclick="adminLogin()">Login</button>
+        </div>
+    </div>
+
+    <!-- ===== CREATE CONTEST MODAL ===== -->
+    <div id="create-contest-modal" class="modal-overlay" onclick="this.classList.remove('active')">
+        <div class="modal-card glass-card" onclick="event.stopPropagation()">
+            <h3>Create Contest</h3>
+            <div class="input-group"><label>Title *</label><input type="text" id="cc-title" placeholder="Contest title"></div>
+            <div class="input-group"><label>Description</label><textarea id="cc-desc" placeholder="Contest description..." rows="3"></textarea></div>
+            <div class="input-group"><label>Time Limit (minutes)</label><input type="number" id="cc-time" value="120" min="1"></div>
+            <button class="btn btn-primary btn-full" onclick="createContest()">Create Contest</button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

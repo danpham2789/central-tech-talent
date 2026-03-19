@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trany Exam - Modern online examination platform with streaks, points, and community chat">
+    <title>Trany Exam - Online Examination Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== LOGIN / REGISTER SCREEN ===== -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-bg">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="floating-shape shape-4"></div>
+        </div>
+        <div class="auth-container">
+            <div class="auth-card glass-card">
+                <div class="auth-logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 48 48" fill="none">
+                            <rect x="4" y="4" width="40" height="40" rx="12" fill="url(#logo-grad)"/>
+                            <path d="M14 16h20M14 24h14M14 32h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                            <circle cx="34" cy="32" r="6" fill="#00E5A0" stroke="white" stroke-width="2"/>
+                            <path d="M31.5 32l1.5 1.5 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs><linearGradient id="logo-grad" x1="4" y1="4" x2="44" y2="44"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4F46E5"/></linearGradient></defs>
+                        </svg>
+                    </div>
+                    <h1>Trany Exam</h1>
+                    <p class="auth-subtitle">Modern Online Examination Platform</p>
+                </div>
+
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form active">
+                    <h2>Welcome Back</h2>
+                    <p class="form-desc">Sign in to your account</p>
+                    <div class="input-group">
+                        <label for="login-username">Username</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="login-username" placeholder="Enter your username" autocomplete="username">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password">
+                        </div>
+                    </div>
+                    <button id="login-btn" class="btn btn-primary btn-full" onclick="handleLogin()">
+                        <span>Sign In</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <p class="auth-switch">Don't have an account? <a href="#" onclick="toggleAuthForm('register')">Create one</a></p>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form" class="auth-form">
+                    <h2>Create Account</h2>
+                    <p class="form-desc">Join the examination platform</p>
+                    <div class="input-group">
+                        <label for="reg-fullname">Full Name</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="reg-fullname" placeholder="Enter your full name">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-email">Email</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-username">Username</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+                            <input type="text" id="reg-username" placeholder="Choose a username" autocomplete="username">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-password">Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <input type="password" id="reg-password" placeholder="Create a password" autocomplete="new-password">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-role">Role</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <select id="reg-role">
+                                <option value="student">Student</option>
+                                <option value="admin">Admin / Teacher</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-cv">Upload CV (PDF, optional)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="reg-cv" accept=".pdf,.doc,.docx" onchange="handleCVUpload(event)">
+                            <div class="file-upload-display" id="cv-upload-display">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                <span>Click or drag to upload your CV</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="register-btn" class="btn btn-primary btn-full" onclick="handleRegister()">
+                        <span>Create Account</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="toggleAuthForm('login')">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div id="app-screen" class="screen">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon-sm">
+                        <svg viewBox="0 0 48 48" fill="none">
+                            <rect x="4" y="4" width="40" height="40" rx="12" fill="url(#logo-grad2)"/>
+                            <path d="M14 16h20M14 24h14M14 32h18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                            <circle cx="34" cy="32" r="6" fill="#00E5A0" stroke="white" stroke-width="2"/>
+                            <path d="M31.5 32l1.5 1.5 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs><linearGradient id="logo-grad2" x1="4" y1="4" x2="44" y2="44"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#4F46E5"/></linearGradient></defs>
+                        </svg>
+                    </div>
+                    <span>Trany Exam</span>
+                </div>
+            </div>
+
+            <!-- Streak Widget in Sidebar -->
+            <div class="sidebar-streak" id="sidebar-streak" onclick="navigateTo('dashboard')">
+                <div class="streak-fire" id="streak-fire">🔥</div>
+                <div class="streak-info">
+                    <span class="streak-count" id="sidebar-streak-count">0</span>
+                    <span class="streak-label">day streak</span>
+                </div>
+                <div class="streak-bonus" id="sidebar-streak-bonus">1x</div>
+            </div>
+
+            <div class="sidebar-menu">
+                <a href="#" class="menu-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    <span>Dashboard</span>
+                </a>
+
+                <!-- Admin menu items -->
+                <div id="admin-menu">
+                    <div class="menu-label">Administration</div>
+                    <a href="#" class="menu-item" data-page="create-exam" onclick="navigateTo('create-exam')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                        <span>Create Exam</span>
+                    </a>
+                    <a href="#" class="menu-item" data-page="manage-exams" onclick="navigateTo('manage-exams')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <span>Manage Exams</span>
+                    </a>
+                    <a href="#" class="menu-item" data-page="view-results" onclick="navigateTo('view-results')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                        <span>View Results</span>
+                    </a>
+                </div>
+
+                <!-- Student menu items -->
+                <div id="student-menu">
+                    <div class="menu-label">Exams</div>
+                    <a href="#" class="menu-item" data-page="available-exams" onclick="navigateTo('available-exams')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                        <span>Available Exams</span>
+                    </a>
+                    <a href="#" class="menu-item" data-page="my-results" onclick="navigateTo('my-results')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>My Results</span>
+                    </a>
+                    <a href="#" class="menu-item" data-page="leaderboard" onclick="navigateTo('leaderboard')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                        <span>Leaderboard</span>
+                    </a>
+                </div>
+
+                <!-- Community (visible to all) -->
+                <div class="menu-label">Community</div>
+                <a href="#" class="menu-item" data-page="chat" onclick="navigateTo('chat')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    <span>Community Chat</span>
+                    <span class="chat-unread-badge" id="chat-unread-badge" style="display:none;">0</span>
+                </a>
+            </div>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar" id="sidebar-avatar">U</div>
+                    <div class="user-details">
+                        <span class="user-name" id="sidebar-username">User</span>
+                        <span class="user-role" id="sidebar-role">Student</span>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="handleLogout()" title="Logout">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="main-content">
+            <!-- Dashboard Page -->
+            <div id="page-dashboard" class="page active">
+                <div class="page-header">
+                    <div>
+                        <h1 id="dashboard-greeting">Good Evening!</h1>
+                        <p class="page-desc">Here's your overview for today</p>
+                    </div>
+                </div>
+
+                <!-- Streak Hero Card -->
+                <div class="streak-hero-card" id="streak-hero">
+                    <div class="streak-hero-left">
+                        <div class="streak-hero-fire" id="streak-hero-fire">
+                            <span class="fire-emoji">🔥</span>
+                            <div class="fire-particles">
+                                <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+                                <span class="particle"></span><span class="particle"></span><span class="particle"></span>
+                            </div>
+                        </div>
+                        <div class="streak-hero-info">
+                            <div class="streak-hero-count" id="streak-hero-count">0</div>
+                            <div class="streak-hero-label">Day Streak!</div>
+                        </div>
+                    </div>
+                    <div class="streak-hero-right">
+                        <div class="streak-bonus-card">
+                            <span class="streak-bonus-multiplier" id="streak-hero-multiplier">1x</span>
+                            <span class="streak-bonus-label">Point Bonus</span>
+                        </div>
+                        <div class="streak-week" id="streak-week">
+                            <!-- 7-day heatmap filled by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid" id="dashboard-stats">
+                    <!-- Filled by JS -->
+                </div>
+                <div class="dashboard-grid">
+                    <div class="card" id="recent-activity-card">
+                        <div class="card-header">
+                            <h3>Recent Activity</h3>
+                        </div>
+                        <div class="card-body" id="recent-activity">
+                            <!-- Filled by JS -->
+                        </div>
+                    </div>
+                    <div class="card" id="quick-actions-card">
+                        <div class="card-header">
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <div class="card-body" id="quick-actions">
+                            <!-- Filled by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create Exam Page (Admin) -->
+            <div id="page-create-exam" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>Create New Exam</h1>
+                        <p class="page-desc">Design your exam with questions and answers</p>
+                    </div>
+                </div>
+                <div class="create-exam-container">
+                    <div class="card">
+                        <div class="card-header"><h3>Exam Details</h3></div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="exam-title">Exam Title</label>
+                                    <input type="text" id="exam-title" placeholder="e.g., Mathematics Final Exam">
+                                </div>
+                                <div class="input-group">
+                                    <label for="exam-duration">Duration (minutes)</label>
+                                    <input type="number" id="exam-duration" placeholder="60" min="1" value="30">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="exam-description">Description</label>
+                                <textarea id="exam-description" placeholder="Describe what this exam covers..." rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="exam-category">Category</label>
+                                    <select id="exam-category">
+                                        <option value="math">Mathematics</option>
+                                        <option value="science">Science</option>
+                                        <option value="english">English</option>
+                                        <option value="history">History</option>
+                                        <option value="programming">Programming</option>
+                                        <option value="general">General Knowledge</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="exam-points">Points per Question</label>
+                                    <input type="number" id="exam-points" placeholder="10" min="1" value="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" id="questions-container">
+                        <div class="card-header">
+                            <h3>Questions</h3>
+                            <button class="btn btn-sm btn-accent" onclick="addQuestion()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                Add Question
+                            </button>
+                        </div>
+                        <div class="card-body" id="questions-list"></div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" onclick="resetExamForm()">Reset</button>
+                        <button class="btn btn-primary" onclick="saveExam()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                            Publish Exam
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Exams Page (Admin) -->
+            <div id="page-manage-exams" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>Manage Exams</h1>
+                        <p class="page-desc">View and manage your created exams</p>
+                    </div>
+                </div>
+                <div id="manage-exams-list" class="exams-grid"></div>
+            </div>
+
+            <!-- View Results Page (Admin) -->
+            <div id="page-view-results" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>Student Results</h1>
+                        <p class="page-desc">View all student exam results and scores</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table id="results-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Exam</th>
+                                        <th>Score</th>
+                                        <th>Base Pts</th>
+                                        <th>Streak Bonus</th>
+                                        <th>Total Pts</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Exams Page (Student) -->
+            <div id="page-available-exams" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>Available Exams</h1>
+                        <p class="page-desc">Browse and take available examinations</p>
+                    </div>
+                </div>
+                <div id="available-exams-list" class="exams-grid"></div>
+            </div>
+
+            <!-- Take Exam Page (Student) -->
+            <div id="page-take-exam" class="page">
+                <div class="exam-header-bar">
+                    <div class="exam-info-bar">
+                        <h2 id="taking-exam-title">Exam Title</h2>
+                        <div class="exam-timer" id="exam-timer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span id="timer-display">30:00</span>
+                        </div>
+                    </div>
+                    <div class="exam-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="exam-progress-fill"></div>
+                        </div>
+                        <span id="exam-progress-text">0 / 0</span>
+                    </div>
+                </div>
+                <div id="exam-questions-container" class="exam-questions"></div>
+                <div class="form-actions">
+                    <button class="btn btn-secondary" onclick="confirmSubmitExam()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        Submit Exam
+                    </button>
+                </div>
+            </div>
+
+            <!-- My Results Page (Student) -->
+            <div id="page-my-results" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>My Results</h1>
+                        <p class="page-desc">View your exam history and scores</p>
+                    </div>
+                </div>
+                <div id="my-results-list" class="results-cards"></div>
+            </div>
+
+            <!-- Leaderboard Page -->
+            <div id="page-leaderboard" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>Leaderboard</h1>
+                        <p class="page-desc">Top performing students across all exams</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="leaderboard-podium" id="leaderboard-podium"></div>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Student</th>
+                                        <th>Total Points</th>
+                                        <th>🔥 Streak</th>
+                                        <th>Exams Taken</th>
+                                        <th>Avg Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leaderboard-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Chat Page -->
+            <div id="page-chat" class="page">
+                <div class="page-header">
+                    <div>
+                        <h1>💬 Community Chat</h1>
+                        <p class="page-desc">Connect with fellow students and teachers</p>
+                    </div>
+                    <div class="chat-online-count">
+                        <span class="online-dot"></span>
+                        <span id="chat-online-text">Community</span>
+                    </div>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Filled by JS -->
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off" onkeydown="if(event.key==='Enter')sendChatMessage()">
+                        <button class="btn btn-primary chat-send-btn" onclick="sendChatMessage()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal overlay -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-card glass-card" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer" id="modal-footer"></div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+    <script src="features.js"></script>
+</body>
+</html>
