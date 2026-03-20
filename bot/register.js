@@ -1,7 +1,7 @@
 const { REST, Routes } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-const { TOKEN, CLIENT_ID } = require("./config");
+const { TOKEN, CLIENT_ID, GUILD_ID } = require("./config");
 
 async function register() {
   const commands = [];
@@ -20,7 +20,7 @@ async function register() {
   try {
     console.log("📝 Registering slash commands...");
     await rest.put(
-      Routes.applicationCommands(CLIENT_ID),
+		Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
       { body: commands }
     );
     console.log("✅ Commands registered!");

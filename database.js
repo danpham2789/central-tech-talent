@@ -14,7 +14,10 @@ const DEFAULT_DB = {
     participants: [],
     submissions: [],
     point_codes: [],
-    discord_points: []
+    discord_points: [],
+	minicase: [],
+	discord_submissions: [],
+	hackathon: []
 };
 
 function loadDB() {

@@ -1,11 +1,12 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-const { TOKEN, PREFIX } = require("./config");
+const { TOKEN, PREFIX, WELCOMEID } = require("./config");
 
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+	GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
   ]
@@ -56,6 +57,12 @@ client.on("interactionCreate", async interaction => {
     interaction.reply({ content: "❌ Error executing command.", ephemeral: true });
   }
 });
+
+client.on("guildMemberAdd", (member) => {
+	const channel = member.guild.channels.cache.get(WELCOMEID);
+	if (!channel) return;
+	channel.send(`Welcome to the server, ${member}! 🎉`);
+})
 
 client.on("ready", () => {
   console.log(`🤖 Bot online! ${client.user.tag}`);

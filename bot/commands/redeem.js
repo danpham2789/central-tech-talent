@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { redeemCode } = require("../utils/redeemLogic");
 const { buildRedeemEmbed } = require("../utils/embeds");
+const { modifyRank } = require("../utils/modifyRank");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -13,17 +14,21 @@ module.exports = {
   async execute(interaction) {
     const code = interaction.options.getString("code").toUpperCase().trim();
     const result = redeemCode(code, interaction.user.id, interaction.user.username);
+	modifyRank(interaction, interaction.user.id);
 
     await interaction.reply({
       embeds: [buildRedeemEmbed(result)],
-      ephemeral: !!result.error
+      ephemeral: true
     });
   },
 
   async executePrefix(message, args) {
-    const code = (args[0] || "").toUpperCase().trim();
-    const result = redeemCode(code, message.author.id, message.author.username);
+	const embed = new EmbedBuilder()
+		.setDescription("Please use slash command /redeem instead.");
+    message.reply({
+      embeds: [embed],
+	  ephemeral: true
+    });
 
-    message.reply({ embeds: [buildRedeemEmbed(result)] });
   }
 };

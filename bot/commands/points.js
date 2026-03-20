@@ -8,13 +8,15 @@ module.exports = {
 
   async execute(interaction) {
     await interaction.reply({
-      embeds: [buildPointsEmbed(interaction.user.id, interaction.user.username)]
+      embeds: [buildPointsEmbed(interaction.user.id, interaction.user.username)],
+	  ephemeral: true
     });
   },
 
   async executePrefix(message) {
     message.reply({
-      embeds: [buildPointsEmbed(message.author.id, message.author.username)]
+      embeds: [buildPointsEmbed(message.author.id, message.author.username)],
+      ephemeral: true
     });
   }
 };
