@@ -1,7 +1,7 @@
 const { Client, GatewayIntentBits, Collection } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
-const { TOKEN, PREFIX, WELCOMEID } = require("./config");
+const { TOKEN, PREFIX, WELCOMEID, TECH } = require("./config");
 
 const client = new Client({
   intents: [
@@ -58,10 +58,39 @@ client.on("interactionCreate", async interaction => {
   }
 });
 
-client.on("guildMemberAdd", (member) => {
+client.on("guildMemberAdd", async (member) => {
 	const channel = member.guild.channels.cache.get(WELCOMEID);
 	if (!channel) return;
-	channel.send(`Welcome to the server, ${member}! 🎉`);
+
+	const role = member.guild.roles.cache.get(TECH);
+	if (role) {
+		try {
+			await member.roles.add(role);
+		} catch(error) {
+			console.error("Failed to add role:", error);
+		}
+	}
+
+	channel.send(`
+		📢 [WELCOME TO CENTRAL TECH TALENT]
+
+		Chào mừng ${member.displayName} đến với Central Tech Talent – Nơi bạn tạo dấu ấn trước khi ứng tuyển.
+
+		Đây là community dành cho Tech Talent miền Trung, giúp bạn thể hiện năng lực thực tế và được doanh nghiệp ghi nhận trước khi apply.
+
+		✨ Tại đây, bạn có thể:
+		• Tham gia challenge / task thực tế
+		• Nhận feedback từ mentor & recruiter
+		• Xây dựng profile & portfolio cá nhân
+		• Tăng cơ hội được doanh nghiệp chú ý & recommend sớm
+
+		🚀 Bắt đầu ngay:
+		→ Vào #onboarding để chọn role
+		→ Khám phá #challenge hoặc #task
+		→ Giới thiệu bản thân tại #intro
+
+		💬 Nếu cần hỗ trợ, đừng ngại nhắn admin nhé!
+	`)
 })
 
 client.on("ready", () => {
