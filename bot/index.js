@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection } = require("discord.js");
+const { Client, GatewayIntentBits, Collection, bold } = require("discord.js");
 const fs = require("fs");
 const path = require("path");
 const { TOKEN, PREFIX, WELCOMEID, TECH } = require("./config");
@@ -74,7 +74,7 @@ client.on("guildMemberAdd", async (member) => {
 	channel.send(`
 		📢 [WELCOME TO CENTRAL TECH TALENT]
 
-		Chào mừng ${member.displayName} đến với Central Tech Talent – Nơi bạn tạo dấu ấn trước khi ứng tuyển.
+		Chào mừng ${bold(member.displayName)} đến với Central Tech Talent – Nơi bạn tạo dấu ấn trước khi ứng tuyển.
 
 		Đây là community dành cho Tech Talent miền Trung, giúp bạn thể hiện năng lực thực tế và được doanh nghiệp ghi nhận trước khi apply.
 
