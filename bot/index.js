@@ -85,9 +85,8 @@ client.on("guildMemberAdd", async (member) => {
 		• Tăng cơ hội được doanh nghiệp chú ý & recommend sớm
 
 		🚀 Bắt đầu ngay:
-		→ Vào #onboarding để chọn role
-		→ Khám phá #challenge hoặc #task
-		→ Giới thiệu bản thân tại #intro
+		→ Khám phá #minicase hoặc #hackathon hoặc #bounty-hunter
+		→ Giới thiệu bản thân tại #conversation
 
 		💬 Nếu cần hỗ trợ, đừng ngại nhắn admin nhé!
 	`)
